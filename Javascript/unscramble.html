@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Unscrambler</title>
+    <link rel="stylesheet" href="unscramble.css">
+</head>
+<body>
+
+<h1>Word Unscrambler</h1>
+
+<form id="unscrambleForm">
+    <label for="scrambledWord">Enter scrambled word:</label>
+    <input type="text" id="scrambledWord" required>
+    <button type="button" onclick="unscramble()">Unscramble</button>
+</form>
+
+<p id="result"></p>
+
+<script>
+    
+    const dictionary = ["cat", "dog", "bat", "tab", "kabarthini"];
+
+    function unscrambleWord(scrambledWord) {
+        for (let i = 0; i < dictionary.length; i++) {
+            const word = dictionary[i];
+            if (isAnagram(scrambledWord, word)) {
+                return word;
+            }
+        }
+        return null;
+    }
+
+    function isAnagram(str1, str2) {
+        return str1.split('').sort().join('') === str2.split('').sort().join('');
+    }
+
+    function unscramble() {
+        const scrambledWordInput = document.getElementById("scrambledWord");
+        const resultOutput = document.getElementById("result");
+
+        const scrambledWord = scrambledWordInput.value.toLowerCase();
+        const unscrambledWord = unscrambleWord(scrambledWord);
+
+        resultOutput.textContent = `Unscrambled word: ${unscrambledWord || 'No valid word found.'}`;
+    }
+</script>
+
+</body>
+</html>
